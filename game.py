@@ -24,8 +24,9 @@ board = Board(root)
 for c in range(BOARD_WIDTH):
     column = []
     button = Button(board.frame, image=board.red_coin_img,
-        command=lambda: game.addCoin(c))
+        command=lambda c = c: game.addCoin(c))
     button.grid(row=0, column=c)
+    column.append(button)
     for r in range(1, BOARD_HEIGHT):
         button = Button(board.frame, image=board.null_coin_img)
         button.grid(row=r, column=c)
