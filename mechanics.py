@@ -12,3 +12,10 @@ class Coin:
 
     def getColor(self):
         return self.color
+
+class Game:
+    def __init__(self):
+        self.coins = []
+
+    def addCoin(self, x, y, color):
+        self.coins.append(Coin(x, y, color))
