@@ -13,12 +13,13 @@ class Game:
         self.null_coin_img = PhotoImage(file='null_coin.gif')
 
         self.squares = []
+
         for c in range(BOARD_WIDTH):
             column = []
-            for r in range(1, BOARD_HEIGHT):
-                label = Label(image=self.red_coin_img)
-                label.grid(row=r, column=c)
-                column.append(label)
+            for r in range(BOARD_HEIGHT):
+                button = Button(self.frame, image=self.red_coin_img)
+                button.grid(row=r, column=c)
+                column.append(button)
             self.squares.append(column)
 
 
