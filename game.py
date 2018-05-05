@@ -1,12 +1,14 @@
 from tkinter import *
+from mechanics import *
 
 BOARD_WIDTH = 7
 BOARD_HEIGHT = 6
 
-class Game:
+class Board:
     def __init__(self, master):
         self.frame = Frame(master)
         self.frame.grid()
+        self.current_player = 'red'
 
         self.red_coin_img = PhotoImage(file='red_coin.gif')
         self.yellow_coin_img = PhotoImage(file='yellow_coin.gif')
@@ -22,8 +24,11 @@ class Game:
                 column.append(button)
             self.squares.append(column)
 
+    def updateBoard(self):
+        pass
+        
 root = Tk()
 
-game = Game(root)
+board= Board(root)
 
 root.mainloop()
