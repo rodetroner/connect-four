@@ -23,8 +23,9 @@ class Game:
         if self.current_player == 'red':
             self.current_player = 'blue'
         else:
-            self.current_player = 'run'
+            self.current_player = 'red'
 
-    def addCoin(self, x, y, color):
-        self.coins.append(Coin(x, y, color))
+    def addCoin(self, column):
+        self.coins.append(Coin(column, 11, self.current_player))
+ #       print(self.coins)
 
