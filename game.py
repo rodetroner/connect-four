@@ -17,12 +17,10 @@ class Game:
         for c in range(BOARD_WIDTH):
             column = []
             for r in range(BOARD_HEIGHT):
-                button = Button(self.frame, image=self.red_coin_img)
+                button = Button(self.frame, image=self.null_coin_img)
                 button.grid(row=r, column=c)
                 column.append(button)
             self.squares.append(column)
-
-
 
 root = Tk()
 
