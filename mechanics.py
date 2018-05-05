@@ -49,5 +49,6 @@ class Game:
     def addCoin(self, column):
         row = self.getBottomFreeHoleInColumn(column)
         self.coins.append(Coin(column, row, self.current_player))
+        print(self.coins)
         self.nextTurn()
 

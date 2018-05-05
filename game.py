@@ -14,23 +14,25 @@ class Board:
         self.null_coin_img = PhotoImage(file='null_coin.gif')
         self.squares = []
 
-    def updateBoard(self):
-        pass
-        
+    def setup(self, game):
+        for c in range(BOARD_WIDTH):
+            column = []
+            button = Button(self.frame, image=self.red_coin_img,
+            command=lambda c = c: game.addCoin(c))
+            button.grid(row=0, column=c)
+            column.append(button)
+            for r in range(1, BOARD_HEIGHT):
+                button = Button(self.frame, image=self.null_coin_img)
+                button.grid(row=r, column=c)
+                column.append(button)
+            self.squares.append(column)
+
+
+
 game = Game()
 root = Tk()
 
 board = Board(root)
-for c in range(BOARD_WIDTH):
-    column = []
-    button = Button(board.frame, image=board.red_coin_img,
-        command=lambda c = c: game.addCoin(c))
-    button.grid(row=0, column=c)
-    column.append(button)
-    for r in range(1, BOARD_HEIGHT):
-        button = Button(board.frame, image=board.null_coin_img)
-        button.grid(row=r, column=c)
-        column.append(button)
-    board.squares.append(column)
+board.setup(game)
 
 root.mainloop()
