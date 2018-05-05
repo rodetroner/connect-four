@@ -16,6 +16,15 @@ class Coin:
 class Game:
     def __init__(self):
         self.coins = []
+        self.current_turn = 0
+        self.current_player = 'red'
+
+    def nextTurn(self):
+        if self.current_player == 'red':
+            self.current_player = 'blue'
+        else:
+            self.current_player = 'run'
 
     def addCoin(self, x, y, color):
         self.coins.append(Coin(x, y, color))
+
