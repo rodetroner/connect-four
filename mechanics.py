@@ -134,15 +134,14 @@ class Game:
     def getCurrentPlayer(self):
         return self.current_player
 
-    def isGameWon(self)
+    def isWon(self):
         return self.game_won
 
-    def isGameTied(self)
+    def isTied(self):
         return self.game_tied
 
-    def tryingToPlaceTooHigh(self)
+    def tryingToPlaceTooHigh(self):
         return self.too_high
-
 
     def getCoins(self):
         return self.coins

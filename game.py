@@ -15,6 +15,8 @@ class Board:
         self.squares = []
         self.label = Label(self.frame, text='Tura gracza 1')
         self.label.grid(row=11, column=8)
+        self.label2 = Label(self.frame, text="")
+        self.label.grid(row=11, column=9)
 
 
 
@@ -36,10 +38,24 @@ class Board:
                 self.squares[coin.getX()][coin.getY()].config(image=self.red_coin_img)
             elif coin.getColor() == 'yellow':
                 self.squares[coin.getX()][coin.getY()].config(image=self.yellow_coin_img)
-        if game.current_player == 'red':
+
+        if game.getCurrentPlayer() == 'red':
             self.label.config(text='Tura gracza 1')
         else:
             self.label.config(text='Tura gracza 2')
+
+        if game.isWon():
+            if game.getCurrentPlayer() == 'red':
+                self.label.config(text="wygrał gracz 2")
+            else:
+                self.label.config(text="wygrał gracz 1")
+        
+        if game.isTied():
+            self.label.config(text="PAT")
+
+        if game.tryingToPlaceTooHigh():
+            self.label2.config("Kolumna zapełniona")
+
         root.after(10, self.update, game)
 
     def checkForResults(self, game):
