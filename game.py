@@ -35,6 +35,9 @@ class Board:
                 self.squares[coin.getX()][coin.getY()].config(image=self.yellow_coin_img)
         root.after(10, self.update, game)
 
+    def checkForResults(self, game):
+        pass
+
 root = Tk()
 game = Game()
 
