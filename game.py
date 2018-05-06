@@ -7,12 +7,16 @@ BOARD_HEIGHT = 6
 class Board:
     def __init__(self, master):
         self.frame = Frame(master)
-        self.frame.grid()
+        self.frame.pack()
 
         self.red_coin_img = PhotoImage(file='red_coin.gif')
         self.yellow_coin_img = PhotoImage(file='yellow_coin.gif')
         self.null_coin_img = PhotoImage(file='null_coin.gif')
         self.squares = []
+        self.label = Label(self.frame, text='Tura gracza 1')
+        self.label.grid(row=11, column=8)
+
+
 
     def setup(self, game):
         for c in range(BOARD_WIDTH):
@@ -26,19 +30,23 @@ class Board:
                 button.grid(row=r, column=c)
                 column.append(button)
             self.squares.append(column)
-
     def update(self, game):
         for coin in game.getCoins():
             if coin.getColor() == 'red':
                 self.squares[coin.getX()][coin.getY()].config(image=self.red_coin_img)
             elif coin.getColor() == 'yellow':
                 self.squares[coin.getX()][coin.getY()].config(image=self.yellow_coin_img)
+        if game.current_player == 'red':
+            self.label.config(text='Tura gracza 1')
+        else:
+            self.label.config(text='Tura gracza 2')
         root.after(10, self.update, game)
 
     def checkForResults(self, game):
         pass
 
 root = Tk()
+root.title(string='Connect Four')
 game = Game()
 
 board = Board(root)

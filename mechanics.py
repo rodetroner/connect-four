@@ -32,6 +32,9 @@ class Game:
     def __init__(self):
         self.coins = []
         self.current_player = 'red'
+        self.game_won = False
+        self.game_tied = False
+        self.too_high = False
 
     def nextTurn(self):
         if self.current_player == 'red':
@@ -76,7 +79,7 @@ class Game:
             return False
 
 
-    def checkForLines(self):
+    def checkForWin(self):
         for coin in self.coins:
             if self.southConnect(coin, 1):
                 if self.southConnect(coin, 2):
@@ -104,7 +107,6 @@ class Game:
                         return True
 
         return False
-        
 
     def getBottomFreeHoleInColumn(self, column):
         lowest = MIN_HEIGHT
@@ -119,14 +121,27 @@ class Game:
     def addCoin(self, column):
         row = self.getBottomFreeHoleInColumn(column)
         if row != 0:
+            self.too_high = False
             self.coins.append(Coin(column, row, self.current_player))
         else:
-            print("NNNNNNNNNNNNNOOOOOOOOOOO")
+            self.tooHigh = True
+        if self.checkForWin():
+            self.game_won = True
         if self.checkForTie():
-            print("TIE POTATO")
-        if self.checkForLines():
-            print("YA BOI")
+            self.game_tied = True
         self.nextTurn()
+
+    def getCurrentPlayer(self):
+        return self.current_player
+
+    def isGameWon(self)
+        return self.game_won
+
+    def isGameTied(self)
+        return self.game_tied
+
+    def tryingToPlaceTooHigh(self)
+        return self.too_high
 
 
     def getCoins(self):
