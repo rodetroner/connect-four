@@ -27,12 +27,19 @@ class Board:
                 column.append(button)
             self.squares.append(column)
 
+    def update(self, game):
+        for coin in game.getCoins():
+            if coin.getColor() == 'red':
+                self.squares[coin.getX()][coin.getY()].config(image=self.red_coin_img)
+            elif coin.getColor() == 'yellow':
+                self.squares[coin.getX()][coin.getY()].config(image=self.yellow_coin_img)
+        root.after(10, self.update, game)
 
-
-game = Game()
 root = Tk()
+game = Game()
 
 board = Board(root)
 board.setup(game)
+root.after(10, board.update, game)
 
 root.mainloop()

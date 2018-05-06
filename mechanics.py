@@ -1,4 +1,5 @@
-MIN_HEIGHT= 6
+MIN_HEIGHT= 5
+
 
 class Coin:
     def __init__(self, x, y, color):
@@ -28,14 +29,22 @@ class Coin:
 class Game:
     def __init__(self):
         self.coins = []
-        self.current_turn = 0
         self.current_player = 'red'
 
     def nextTurn(self):
         if self.current_player == 'red':
-            self.current_player = 'blue'
+            self.current_player = 'yellow'
         else:
             self.current_player = 'red'
+
+    def checkForLines(self, last_x, last_y):
+        for coin in self.coins:
+            if coin.getX == last_x:
+                return True
+            if coin.getY == last_y:
+                return True
+        return False
+        
 
     def getBottomFreeHoleInColumn(self, column):
         lowest = MIN_HEIGHT
@@ -50,5 +59,11 @@ class Game:
         row = self.getBottomFreeHoleInColumn(column)
         self.coins.append(Coin(column, row, self.current_player))
         print(self.coins)
+        if self.checkForLines(column, row):
+            print("YA BOI")
         self.nextTurn()
+
+
+    def getCoins(self):
+        return self.coins
 
