@@ -41,6 +41,7 @@ class Game:
             self.current_player = 'yellow'
         else:
             self.current_player = 'red'
+        self.too_high = False
 
     def southConnect(self, new, distance):
         for old in self.coins:
@@ -117,14 +118,13 @@ class Game:
 
         return lowest
 
-
     def addCoin(self, column):
         row = self.getBottomFreeHoleInColumn(column)
-        if row != 0:
-            self.too_high = False
-            self.coins.append(Coin(column, row, self.current_player))
+        if row == 0:
+            self.too_high = True
+            return
         else:
-            self.tooHigh = True
+            self.coins.append(Coin(column, row, self.current_player))
         if self.checkForWin():
             self.game_won = True
         if self.checkForTie():
@@ -140,7 +140,7 @@ class Game:
     def isTied(self):
         return self.game_tied
 
-    def tryingToPlaceTooHigh(self):
+    def tooHigh(self):
         return self.too_high
 
     def getCoins(self):
