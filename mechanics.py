@@ -10,6 +10,7 @@ class Coin:
         self.color = color
 
     def getX(self):
+        ''' Get x position of the disc '''
         return self.x
 
     def getY(self):

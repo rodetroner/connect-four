@@ -23,8 +23,10 @@ class Board:
 
 
     def setup(self, game):
-
+        ''' Setup the game. '''
         game.__init__()
+        # put buttons in the window, but only the topmost row has commands
+        # assigned
         for c in range(BOARD_WIDTH):
             column = []
             button = Button(self.frame, image=self.arrow_img,
@@ -40,12 +42,13 @@ class Board:
         root.after(10, board.update, game)
 
     def restart(self, window, game, root):
+        ''' Restart the game '''
         window.destroy()
         self.restart_game = True
         
-        
 
     def end(self, game, root):
+        ''' End the game '''
         victory = Tk()
         frame = Frame(victory)
         frame.pack()
@@ -56,9 +59,8 @@ class Board:
         button.pack()
 
         
-
-
     def update(self, game):
+        ''' Check if the state of the game has changed and react accordingly'''
         for coin in game.getCoins():
             if coin.getColor() == 'red':
                 self.squares[coin.getX()][coin.getY()].config(image=self.red_coin_img)
