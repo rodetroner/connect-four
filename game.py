@@ -20,8 +20,6 @@ class Board:
         self.full_column_label = Label(self.frame, text='')
         self.full_column_label.grid(row=8, column=8)
 
-
-
     def setup(self, game):
         '''Setup the game'''
         game.__init__()
@@ -39,7 +37,7 @@ class Board:
                 column.append(button)
             self.squares.append(column)
         
-        root.after(10, board.update, game)
+        root.after(15, board.update, game)
 
     def restart(self, window, game, root):
         '''Restart the game'''

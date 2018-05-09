@@ -46,6 +46,8 @@ class Game:
         self.too_high = False
 
     def southConnect(self, new_disc, distance):
+        '''Check if there's a disc of the same color at given distance to the
+        south'''
         for old_disc in self.discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getX() == old_disc.getX() \
@@ -53,6 +55,8 @@ class Game:
                     return True
 
     def westConnect(self, new_disc, distance):
+        '''Check if there's a disc of the same color at given distance to the
+        west'''
         for old_disc in self.discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY() == old_disc.getY() \
@@ -60,6 +64,8 @@ class Game:
                     return True
 
     def eastConnect(self, new_disc, distance):
+        '''Check if there's a disc of the same color at given distance to the
+        east'''
         for old_disc in self.discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY() == old_disc.getY() \
@@ -67,6 +73,8 @@ class Game:
                     return True
 
     def northWestConnect(self, new_disc, distance):
+        '''Check if there's a disc of the same color at given distance to the
+        north-west'''
         for old_disc in self.discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY()+distance == old_disc.getY() \
@@ -74,13 +82,19 @@ class Game:
                     return True
 
     def northEastConnect(self, new_disc, distance):
+        '''Check if there's a disc of the same color at given distance to the
+        nort-east'''
         for old_disc in self.discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY()+distance == old_disc.getY() \
                     and new_disc.getX()-distance == old_disc.getX():
                     return True
 
+    # There's no need to check for any other direction because the disc rise
+    # upward
+
     def checkForTie(self):
+        '''Check if the board is filled with discs which mean tie'''
         if len(self.discs) == BOARD_HEIGHT * BOARD_WIDTH:
             return True
         else:
@@ -88,6 +102,9 @@ class Game:
 
 
     def checkForWin(self):
+        '''Check for every disc if it has 3 connecting disc of the same color
+        in any direction which means a win for the player having this color'''
+        
         for disc in self.discs:
             if self.southConnect(disc, 1):
                 if self.southConnect(disc, 2):
@@ -117,6 +134,8 @@ class Game:
         return False
 
     def getBottomFreeHoleInColumn(self, column):
+        '''Get the y position of the first free hole, counting up, in given
+        column'''
         lowest = MIN_HEIGHT
         for disc in self.discs:
             if disc.getX() == column:
@@ -126,6 +145,8 @@ class Game:
         return lowest
 
     def addDisc(self, column):
+        '''Put a disc in given column and check if any ending condition has
+        been met'''
         row = self.getBottomFreeHoleInColumn(column)
         if row == 0:
             self.too_high = True
