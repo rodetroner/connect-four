@@ -10,10 +10,10 @@ class Board:
         self.game_running = True
         self.frame.pack()
 
-        self.red_coin_img = PhotoImage(file='red_coin.gif')
-        self.yellow_coin_img = PhotoImage(file='yellow_coin.gif')
-        self.null_coin_img = PhotoImage(file='null_coin.gif')
-        self.arrow_img = PhotoImage(file='arrow.gif')
+        self.red_coin_img = PhotoImage(file='graphics/red_coin.gif')
+        self.yellow_coin_img = PhotoImage(file='graphics/yellow_coin.gif')
+        self.null_coin_img = PhotoImage(file='graphics/null_coin.gif')
+        self.arrow_img = PhotoImage(file='graphics/arrow.gif')
         self.squares = []
         self.label = Label(self.frame, text='Tura gracza 1')
         self.label.grid(row=9, column=8)
