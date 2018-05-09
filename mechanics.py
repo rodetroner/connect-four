@@ -93,7 +93,7 @@ class Game:
 
     def isTied(self):
         '''Check if the board is filled with discs which mean tie'''
-        if len(self._discs) == BOARD_HEIGHT * BOARD_WIDTH:
+        if len(self._discs) == self._height * self._width:
             return True
         else:
             return False
@@ -105,7 +105,7 @@ class Game:
     def getBottomFreeHoleInColumn(self, column):
         '''Get the y position of the first free hole, counting up, in given
         column'''
-        lowest = MIN_HEIGHT
+        lowest = self._height 
         for disc in self._discs:
             if disc.getX() == column:
                 if disc.getY() <= lowest:
@@ -180,6 +180,8 @@ class fiveInARow(Game):
             Disc(0, 6, 'yellow')]
         self._current_player = 'red'
         self._too_high = False
+        self._width = 7
+        self._height = 6
 
 
 
