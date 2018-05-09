@@ -15,10 +15,10 @@ class Board:
         self.null_disc_img = PhotoImage(file='graphics/null_disc.gif')
         self.arrow_img = PhotoImage(file='graphics/arrow.gif')
         self.squares = []
-        self.label = Label(self.frame, text='Tura gracza 1')
-        self.label.grid(row=9, column=8)
-        self.label2 = Label(self.frame, text='')
-        self.label2.grid(row=8, column=8)
+        self.game_state_label = Label(self.frame, text='Tura gracza 1')
+        self.game_state_label.grid(row=9, column=8)
+        self.full_column_label = Label(self.frame, text='')
+        self.full_column_label.grid(row=8, column=8)
 
 
 
@@ -52,8 +52,8 @@ class Board:
         victory = Tk()
         frame = Frame(victory)
         frame.pack()
-        label = Label(frame, text=self.victory_message)
-        label.pack()
+        end_game_label = Label(frame, text=self.victory_message)
+        end_game_label.pack()
         button = Button(frame, text="Zagraj jeszcze raz",
             command=lambda: self.restart(victory, game, root))
         button.pack()
@@ -61,16 +61,20 @@ class Board:
         
     def update(self, game):
         '''Check if the state of the game has changed and react accordingly'''
+
+        # Check if there are new discs to be added to the board
+        # and change graphics of appropriate buttons
         for disc in game.getDiscs():
             if disc.getColor() == 'red':
                 self.squares[disc.getX()][disc.getY()].config(image=self.red_disc_img)
             elif disc.getColor() == 'yellow':
                 self.squares[disc.getX()][disc.getY()].config(image=self.yellow_disc_img)
 
+        # Display current player
         if game.getCurrentPlayer() == 'red':
-            self.label.config(text='Tura gracza 1')
+            self.game_state_label.config(text='Tura gracza 1')
         else:
-            self.label.config(text='Tura gracza 2')
+            self.game_state_label.config(text='Tura gracza 2')
 
         if game.isWon():
             if game.getCurrentPlayer() == 'red':
@@ -81,12 +85,12 @@ class Board:
             self.end(game, root)
         
         if game.isTied():
-            self.label.config(text="PAT")
+            self.game_state_label.config(text="PAT")
 
         if game.tooHigh():
-            self.label2.config(text="Kolumna zapełniona")
+            self.full_column_label.config(text="Kolumna zapełniona")
         else:
-            self.label2.config(text="                              ")
+            self.full_column_label.config(text="                              ")
 
         if self.game_running:
             root.after(15, self.update, game)
