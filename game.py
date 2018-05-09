@@ -21,9 +21,9 @@ class Board:
         self.full_column_label = Label(self.frame, text='')
         self.full_column_label.grid(row=8, column=8)
 
-    def setup(self, game):
+    def setup(self):
         '''Setup the game'''
-        game.__init__()
+        self.current_game.__init__()
         # put buttons in the window, but only the topmost row has commands
         # assigned
         for c in range(BOARD_WIDTH):
@@ -38,18 +38,18 @@ class Board:
                 column.append(button)
             self.squares.append(column)
         
-        root.after(15, board.update, game)
+        root.after(15, self.update)
 
 
-    def restart(self, window, game, root):
+    def restart(self, window, root):
         '''Restart the game'''
         window.destroy()
         self.frame.destroy()
-        self.__init__(root)
-        self.setup(game)
+        self.__init__(root, self.current_game)
+        self.setup()
 
 
-    def end(self, game, root):
+    def end(self, root):
         '''End the game'''
         victory = Tk()
         frame = Frame(victory)
@@ -57,54 +57,54 @@ class Board:
         end_game_label = Label(frame, text=self.victory_message)
         end_game_label.pack()
         button = Button(frame, text="Zagraj jeszcze raz",
-            command=lambda: self.restart(victory, game, root))
+            command=lambda: self.restart(victory, root))
         button.pack()
         
 
-    def update(self, game):
+    def update(self):
         '''Check if the state of the game has changed and react accordingly'''
 
         # Check if there are new discs to be added to the board
         # and change graphics of appropriate buttons
-        for disc in game.getDiscs():
+        for disc in self.current_game.getDiscs():
             if disc.getColor() == 'red':
                 self.squares[disc.getX()][disc.getY()].config(image=self.red_disc_img)
             elif disc.getColor() == 'yellow':
                 self.squares[disc.getX()][disc.getY()].config(image=self.yellow_disc_img)
 
         # Display current player
-        if game.getCurrentPlayer() == 'red':
+        if self.current_game.getCurrentPlayer() == 'red':
             self.game_state_label.config(text='Tura gracza 1')
         else:
             self.game_state_label.config(text='Tura gracza 2')
 
-        if game.isWon():
-            if game.getCurrentPlayer() == 'red':
+        if self.current_game.isWon():
+            if self.current_game.getCurrentPlayer() == 'red':
                 self.victory_message = "Wygrał gracz 2"
             else:
                 self.victory_message = "Wygrał gracz 1"
             self.game_running = False
-            self.end(game, root)
+            self.end(root)
         
-        if game.isTied():
+        if self.current_game.isTied():
             self.victory_message = "Remis"
             self.game_running = False
-            self.end(game, root)
+            self.end(root)
 
         # Check if player wants to put a disc in a full column
-        if game.tooHigh():
+        if self.current_game.tooHigh():
             self.full_column_label.config(text="Kolumna zapełniona")
         else:
             self.full_column_label.config(text="                              ")
 
         if self.game_running:
-            root.after(15, self.update, game)
+            root.after(15, self.update)
 
 root = Tk()
 root.title(string='Connect Four')
 game = fiveInARow()
 
-board = Board(root)
-board.setup(game)
+board = Board(root, game)
+board.setup()
 
 root.mainloop()
