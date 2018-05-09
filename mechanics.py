@@ -134,6 +134,12 @@ class Game:
 
     def whoWon(self):
         pass
+
+    def getHeight(self):
+        return self._height
+
+    def getWidth(self):
+        return self._width
         
 
 class fourInARow(Game):
