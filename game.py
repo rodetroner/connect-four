@@ -5,9 +5,10 @@ BOARD_WIDTH = 7
 BOARD_HEIGHT = 7
 
 class Board:
-    def __init__(self, master):
+    def __init__(self, master, game):
         self.frame = Frame(master)
         self.game_running = True
+        self.current_game = game
         self.frame.pack()
 
         self.red_disc_img = PhotoImage(file='graphics/red_disc.gif')
