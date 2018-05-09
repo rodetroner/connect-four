@@ -5,50 +5,48 @@ BOARD_HEIGHT= 5
 
 class Disc:
     def __init__(self, x, y, color):
-        self.x = x
-        self.y = y
-        self.color = color
+        self._x = x
+        self._y = y
+        self._color = color
 
     def getX(self):
         '''Get x position of a disc'''
-        return self.x
+        return self._x
 
     def getY(self):
         '''Get y position of a disc'''
-        return self.y
+        return self._y
 
     def getColor(self):
         '''Get color of a disc'''
-        return self.color
+        return self._color
 
     def __str__(self):
-        return 'Disc: x=' + str(self.x) + ', y=' + str(self.y) + ', color='\
-            + self.color
+        return 'Disc: x=' + str(self._x) + ', y=' + str(self._y) + ', color='\
+            + self._color
 
     def __repr__(self):
-        return 'Disc(' + str(self.x) + ', ' + str(self.y) + ', '\
-            + self.color + ')'
+        return 'Disc(' + str(self._x) + ', ' + str(self._y) + ', '\
+            + self._color + ')'
 
 class Game:
     def __init__(self):
-        self.discs = []
-        self.current_player = 'red'
-        self.game_won = False
-        self.game_tied = False
-        self.too_high = False
+        self._discs = []
+        self._current_player = 'red'
+        self._too_high = False
 
     def nextTurn(self):
         '''Change the current player'''
-        if self.current_player == 'red':
-            self.current_player = 'yellow'
+        if self._current_player == 'red':
+            self._current_player = 'yellow'
         else:
-            self.current_player = 'red'
-        self.too_high = False
+            self._current_player = 'red'
+        self._too_high = False
 
     def southConnect(self, new_disc, distance):
         '''Check if there's a disc of the same color at given distance to the
         south'''
-        for old_disc in self.discs:
+        for old_disc in self._discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getX() == old_disc.getX() \
                     and new_disc.getY()+distance == old_disc.getY():
@@ -57,7 +55,7 @@ class Game:
     def westConnect(self, new_disc, distance):
         '''Check if there's a disc of the same color at given distance to the
         west'''
-        for old_disc in self.discs:
+        for old_disc in self._discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY() == old_disc.getY() \
                     and new_disc.getX()-distance == old_disc.getX():
@@ -66,7 +64,7 @@ class Game:
     def eastConnect(self, new_disc, distance):
         '''Check if there's a disc of the same color at given distance to the
         east'''
-        for old_disc in self.discs:
+        for old_disc in self._discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY() == old_disc.getY() \
                     and new_disc.getX()+distance == old_disc.getX():
@@ -75,7 +73,7 @@ class Game:
     def northWestConnect(self, new_disc, distance):
         '''Check if there's a disc of the same color at given distance to the
         north-west'''
-        for old_disc in self.discs:
+        for old_disc in self._discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY()+distance == old_disc.getY() \
                     and new_disc.getX()+distance == old_disc.getX():
@@ -84,7 +82,7 @@ class Game:
     def northEastConnect(self, new_disc, distance):
         '''Check if there's a disc of the same color at given distance to the
         nort-east'''
-        for old_disc in self.discs:
+        for old_disc in self._discs:
             if new_disc.getColor() == old_disc.getColor():
                 if new_disc.getY()+distance == old_disc.getY() \
                     and new_disc.getX()-distance == old_disc.getX():
@@ -93,19 +91,19 @@ class Game:
     # There's no need to check for any other direction because the disc rise
     # upward
 
-    def checkForTie(self):
+    def isTied(self):
         '''Check if the board is filled with discs which mean tie'''
-        if len(self.discs) == BOARD_HEIGHT * BOARD_WIDTH:
+        if len(self._discs) == BOARD_HEIGHT * BOARD_WIDTH:
             return True
         else:
             return False
 
 
-    def checkForWin(self):
+    def isWon(self):
         '''Check for every disc if it has 3 connecting disc of the same color
         in any direction which means a win for the player having this color'''
         
-        for disc in self.discs:
+        for disc in self._discs:
             if self.southConnect(disc, 1):
                 if self.southConnect(disc, 2):
                     if self.southConnect(disc, 3):
@@ -137,7 +135,7 @@ class Game:
         '''Get the y position of the first free hole, counting up, in given
         column'''
         lowest = MIN_HEIGHT
-        for disc in self.discs:
+        for disc in self._discs:
             if disc.getX() == column:
                 if disc.getY() <= lowest:
                     lowest = disc.getY()-1
@@ -145,33 +143,22 @@ class Game:
         return lowest
 
     def addDisc(self, column):
-        '''Put a disc in given column and check if any ending condition has
-        been met'''
+        '''Put a disc in given column'''
         row = self.getBottomFreeHoleInColumn(column)
         if row == 0:
-            self.too_high = True
+            self._too_high = True
             return
         else:
-            self.discs.append(Disc(column, row, self.current_player))
-        if self.checkForWin():
-            self.game_won = True
-        if self.checkForTie():
-            self.game_tied = True
+            self._discs.append(Disc(column, row, self._current_player))
         self.nextTurn()
 
     def getCurrentPlayer(self):
-        return self.current_player
-
-    def isWon(self):
-        return self.game_won
-
-    def isTied(self):
-        return self.game_tied
+        return self._current_player
 
     def tooHigh(self):
-        return self.too_high
+        return self._too_high
 
     def getDiscs(self):
-        return self.discs
+        return self._discs
 
 
