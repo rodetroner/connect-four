@@ -10,11 +10,11 @@ class Board:
         self.game_running = True
         self.frame.pack()
 
+        self.squares = []
         self.red_disc_img = PhotoImage(file='graphics/red_disc.gif')
         self.yellow_disc_img = PhotoImage(file='graphics/yellow_disc.gif')
         self.null_disc_img = PhotoImage(file='graphics/null_disc.gif')
         self.arrow_img = PhotoImage(file='graphics/arrow.gif')
-        self.squares = []
         self.game_state_label = Label(self.frame, text='Tura gracza 1')
         self.game_state_label.grid(row=9, column=8)
         self.full_column_label = Label(self.frame, text='')
@@ -39,11 +39,14 @@ class Board:
         
         root.after(15, board.update, game)
 
+
     def restart(self, window, game, root):
         '''Restart the game'''
         window.destroy()
-        self.restart_game = True
-        
+        self.frame.destroy()
+        self.__init__(root)
+        self.setup(game)
+
 
     def end(self, game, root):
         '''End the game'''
@@ -55,8 +58,8 @@ class Board:
         button = Button(frame, text="Zagraj jeszcze raz",
             command=lambda: self.restart(victory, game, root))
         button.pack()
-
         
+
     def update(self, game):
         '''Check if the state of the game has changed and react accordingly'''
 
@@ -76,15 +79,18 @@ class Board:
 
         if game.isWon():
             if game.getCurrentPlayer() == 'red':
-                self.victory_message="wygrał gracz 2"
+                self.victory_message = "wygrał gracz 2"
             else:
-                self.victory_message="wygrał gracz 1"
+                self.victory_message = "wygrał gracz 1"
             self.game_running = False
             self.end(game, root)
         
         if game.isTied():
-            self.game_state_label.config(text="PAT")
+            self.victory_message = "Remis"
+            self.game_running = False
+            self.end(game, root)
 
+        # Check if player wants to put a disc in a full column
         if game.tooHigh():
             self.full_column_label.config(text="Kolumna zapełniona")
         else:
