@@ -10,13 +10,15 @@ class Disc:
         self.color = color
 
     def getX(self):
-        '''Get x position of the disc'''
+        '''Get x position of a disc'''
         return self.x
 
     def getY(self):
+        '''Get y position of a disc'''
         return self.y
 
     def getColor(self):
+        '''Get color of a disc'''
         return self.color
 
     def __str__(self):
@@ -26,8 +28,6 @@ class Disc:
     def __repr__(self):
         return 'Disc(' + str(self.x) + ', ' + str(self.y) + ', '\
             + self.color + ')'
-
-
 
 class Game:
     def __init__(self):
@@ -45,34 +45,39 @@ class Game:
             self.current_player = 'red'
         self.too_high = False
 
-    def southConnect(self, new, distance):
-        for old in self.discs:
-            if new.getColor() == old.getColor():
-                if new.getX() == old.getX() and new.getY()+distance == old.getY():
+    def southConnect(self, new_disc, distance):
+        for old_disc in self.discs:
+            if new_disc.getColor() == old_disc.getColor():
+                if new_disc.getX() == old_disc.getX() \
+                    and new_disc.getY()+distance == old_disc.getY():
                     return True
 
-    def westConnect(self, new, distance):
-        for old in self.discs:
-            if new.getColor() == old.getColor():
-                if new.getY() == old.getY() and new.getX()-distance == old.getX():
+    def westConnect(self, new_disc, distance):
+        for old_disc in self.discs:
+            if new_disc.getColor() == old_disc.getColor():
+                if new_disc.getY() == old_disc.getY() \
+                    and new_disc.getX()-distance == old_disc.getX():
                     return True
 
-    def eastConnect(self, new, distance):
-        for old in self.discs:
-            if new.getColor() == old.getColor():
-                if new.getY() == old.getY() and new.getX()+distance == old.getX():
+    def eastConnect(self, new_disc, distance):
+        for old_disc in self.discs:
+            if new_disc.getColor() == old_disc.getColor():
+                if new_disc.getY() == old_disc.getY() \
+                    and new_disc.getX()+distance == old_disc.getX():
                     return True
 
-    def northWestConnect(self, new, distance):
-        for old in self.discs:
-            if new.getColor() == old.getColor():
-                if new.getY()+distance == old.getY() and new.getX()+distance == old.getX():
+    def northWestConnect(self, new_disc, distance):
+        for old_disc in self.discs:
+            if new_disc.getColor() == old_disc.getColor():
+                if new_disc.getY()+distance == old_disc.getY() \
+                    and new_disc.getX()+distance == old_disc.getX():
                     return True
 
-    def northEastConnect(self, new, distance):
-        for old in self.discs:
-            if new.getColor() == old.getColor():
-                if new.getY()+distance == old.getY() and new.getX()-distance == old.getX():
+    def northEastConnect(self, new_disc, distance):
+        for old_disc in self.discs:
+            if new_disc.getColor() == old_disc.getColor():
+                if new_disc.getY()+distance == old_disc.getY() \
+                    and new_disc.getX()-distance == old_disc.getX():
                     return True
 
     def checkForTie(self):
