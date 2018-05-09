@@ -10,9 +10,9 @@ class Board:
         self.game_running = True
         self.frame.pack()
 
-        self.red_coin_img = PhotoImage(file='graphics/red_coin.gif')
-        self.yellow_coin_img = PhotoImage(file='graphics/yellow_coin.gif')
-        self.null_coin_img = PhotoImage(file='graphics/null_coin.gif')
+        self.red_disc_img = PhotoImage(file='graphics/red_disc.gif')
+        self.yellow_disc_img = PhotoImage(file='graphics/yellow_disc.gif')
+        self.null_disc_img = PhotoImage(file='graphics/null_disc.gif')
         self.arrow_img = PhotoImage(file='graphics/arrow.gif')
         self.squares = []
         self.label = Label(self.frame, text='Tura gracza 1')
@@ -23,18 +23,18 @@ class Board:
 
 
     def setup(self, game):
-        ''' Setup the game. '''
+        '''Setup the game'''
         game.__init__()
         # put buttons in the window, but only the topmost row has commands
         # assigned
         for c in range(BOARD_WIDTH):
             column = []
             button = Button(self.frame, image=self.arrow_img,
-                command=lambda c = c: game.addCoin(c))
+                command=lambda c = c: game.addDisc(c))
             button.grid(row=0, column=c)
             column.append(button)
             for r in range(1, BOARD_HEIGHT):
-                button = Button(self.frame, image=self.null_coin_img)
+                button = Button(self.frame, image=self.null_disc_img)
                 button.grid(row=r, column=c)
                 column.append(button)
             self.squares.append(column)
@@ -42,13 +42,13 @@ class Board:
         root.after(10, board.update, game)
 
     def restart(self, window, game, root):
-        ''' Restart the game '''
+        '''Restart the game'''
         window.destroy()
         self.restart_game = True
         
 
     def end(self, game, root):
-        ''' End the game '''
+        '''End the game'''
         victory = Tk()
         frame = Frame(victory)
         frame.pack()
@@ -60,12 +60,12 @@ class Board:
 
         
     def update(self, game):
-        ''' Check if the state of the game has changed and react accordingly'''
-        for coin in game.getCoins():
-            if coin.getColor() == 'red':
-                self.squares[coin.getX()][coin.getY()].config(image=self.red_coin_img)
-            elif coin.getColor() == 'yellow':
-                self.squares[coin.getX()][coin.getY()].config(image=self.yellow_coin_img)
+        '''Check if the state of the game has changed and react accordingly'''
+        for disc in game.getDiscs():
+            if disc.getColor() == 'red':
+                self.squares[disc.getX()][disc.getY()].config(image=self.red_disc_img)
+            elif disc.getColor() == 'yellow':
+                self.squares[disc.getX()][disc.getY()].config(image=self.yellow_disc_img)
 
         if game.getCurrentPlayer() == 'red':
             self.label.config(text='Tura gracza 1')

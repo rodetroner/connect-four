@@ -10,7 +10,7 @@ class Disc:
         self.color = color
 
     def getX(self):
-        ''' Get x position of the disc '''
+        '''Get x position of the disc'''
         return self.x
 
     def getY(self):
@@ -38,6 +38,7 @@ class Game:
         self.too_high = False
 
     def nextTurn(self):
+        '''Change the current player'''
         if self.current_player == 'red':
             self.current_player = 'yellow'
         else:
