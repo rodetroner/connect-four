@@ -168,3 +168,54 @@ class fourInARow(Game):
                     if self.northEastConnect(disc, 3):
                         return True
         return False
+
+class fiveInARow(Game):
+
+    def __init__(self):
+        self._discs = [Disc(0, 1, 'red'),
+            Disc(0, 2, 'yellow'),
+            Disc(0, 3, 'red'),
+            Disc(0, 4, 'yellow'),
+            Disc(0, 5, 'red'),
+            Disc(0, 6, 'yellow')]
+        self._current_player = 'red'
+        self._too_high = False
+
+
+
+    def isWon(self):
+        '''Check for every disc if it has 4 connecting disc of the same color
+        in any direction which means a win for the player having this color'''
+        
+        for disc in self._discs:
+            if self.southConnect(disc, 1):
+                if self.southConnect(disc, 2):
+                    if self.southConnect(disc, 3):
+                        if self.southConnect(disc, 4):
+                            return True
+
+            if self.westConnect(disc, 1):
+                if self.westConnect(disc, 2):
+                    if self.westConnect(disc, 3):
+                        if self.southConnect(disc, 4):
+                            return True
+
+            if self.eastConnect(disc, 1):
+                if self.eastConnect(disc, 2):
+                    if self.eastConnect(disc, 3):
+                        if self.eastConnect(disc, 4):
+                            return True
+
+            if self.northWestConnect(disc, 1):
+                if self.northWestConnect(disc, 2):
+                    if self.northWestConnect(disc, 3):
+                        if self.northWestConnect(disc, 4):
+                            return True
+
+            if self.northEastConnect(disc, 1):
+                if self.northEastConnect(disc, 2):
+                    if self.northEastConnect(disc, 3):
+                        if self.northEastConnect(disc, 4):
+                            return True
+        return False
+     
