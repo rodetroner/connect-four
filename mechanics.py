@@ -124,21 +124,26 @@ class Game:
         self.nextTurn()
 
     def getCurrentPlayer(self):
+        '''Get the color of the player whose turn is now to play'''
         return self._current_player
 
     def tooHigh(self):
+        '''Check if some player tried to add a disc to a full column'''
         return self._too_high
 
     def getDiscs(self):
+        '''Return a list of all discs objects on the board'''
         return self._discs
 
     def whoWon(self):
         pass
 
     def getHeight(self):
+        '''Return the height of a board in this game'''
         return self._height
 
     def getWidth(self):
+        '''Return the width of a board in this game'''
         return self._width
         
 
