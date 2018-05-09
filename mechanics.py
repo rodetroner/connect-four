@@ -100,36 +100,7 @@ class Game:
 
 
     def isWon(self):
-        '''Check for every disc if it has 3 connecting disc of the same color
-        in any direction which means a win for the player having this color'''
-        
-        for disc in self._discs:
-            if self.southConnect(disc, 1):
-                if self.southConnect(disc, 2):
-                    if self.southConnect(disc, 3):
-                        return True
-
-            if self.westConnect(disc, 1):
-                if self.westConnect(disc, 2):
-                    if self.westConnect(disc, 3):
-                        return True
-
-            if self.eastConnect(disc, 1):
-                if self.eastConnect(disc, 2):
-                    if self.eastConnect(disc, 3):
-                        return True
-
-            if self.northWestConnect(disc, 1):
-                if self.northWestConnect(disc, 2):
-                    if self.northWestConnect(disc, 3):
-                        return True
-
-            if self.northEastConnect(disc, 1):
-                if self.northEastConnect(disc, 2):
-                    if self.northEastConnect(disc, 3):
-                        return True
-
-        return False
+        pass
 
     def getBottomFreeHoleInColumn(self, column):
         '''Get the y position of the first free hole, counting up, in given
@@ -161,4 +132,39 @@ class Game:
     def getDiscs(self):
         return self._discs
 
+    def whoWon(self):
+        pass
+        
 
+class fourInARow(Game):
+    
+    def isWon(self):
+        '''Check for every disc if it has 3 connecting disc of the same color
+        in any direction which means a win for the player having this color'''
+        
+        for disc in self._discs:
+            if self.southConnect(disc, 1):
+                if self.southConnect(disc, 2):
+                    if self.southConnect(disc, 3):
+                        return True
+
+            if self.westConnect(disc, 1):
+                if self.westConnect(disc, 2):
+                    if self.westConnect(disc, 3):
+                        return True
+
+            if self.eastConnect(disc, 1):
+                if self.eastConnect(disc, 2):
+                    if self.eastConnect(disc, 3):
+                        return True
+
+            if self.northWestConnect(disc, 1):
+                if self.northWestConnect(disc, 2):
+                    if self.northWestConnect(disc, 3):
+                        return True
+
+            if self.northEastConnect(disc, 1):
+                if self.northEastConnect(disc, 2):
+                    if self.northEastConnect(disc, 3):
+                        return True
+        return False

@@ -101,7 +101,7 @@ class Board:
 
 root = Tk()
 root.title(string='Connect Four')
-game = Game()
+game = fourInARow()
 
 board = Board(root)
 board.setup(game)
