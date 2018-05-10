@@ -29,7 +29,7 @@ class Board:
         for c in range(BOARD_WIDTH):
             column = []
             button = Button(self.frame, image=self.arrow_img,
-                command=lambda c = c: game.addDisc(c))
+                command=lambda c = c: self.current_game.addDisc(c))
             button.grid(row=0, column=c)
             column.append(button)
             for r in range(1, BOARD_HEIGHT):
