@@ -210,7 +210,7 @@ class fiveInARow(Game):
             if self.westConnect(disc, 1):
                 if self.westConnect(disc, 2):
                     if self.westConnect(disc, 3):
-                        if self.southConnect(disc, 4):
+                        if self.westConnect(disc, 4):
                             return True
 
             if self.eastConnect(disc, 1):
