@@ -1,10 +1,7 @@
 from tkinter import *
 from mechanics import *
 
-BOARD_WIDTH = 7
-BOARD_HEIGHT = 7
-
-class Board:
+class GUI:
     def __init__(self, master, game):
         self.frame = Frame(master)
         self.game_running = True
@@ -104,7 +101,7 @@ root = Tk()
 root.title(string='Connect Four')
 game = fiveInARow()
 
-board = Board(root, game)
+board = GUI(root, game)
 board.setup()
 
 root.mainloop()
