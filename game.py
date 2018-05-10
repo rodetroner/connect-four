@@ -26,13 +26,13 @@ class Board:
         self.current_game.__init__()
         # put buttons in the window, but only the topmost row has commands
         # assigned
-        for c in range(BOARD_WIDTH):
+        for c in range(self.current_game.getWidth()):
             column = []
             button = Button(self.frame, image=self.arrow_img,
                 command=lambda c = c: self.current_game.addDisc(c))
             button.grid(row=0, column=c)
             column.append(button)
-            for r in range(1, BOARD_HEIGHT):
+            for r in range(1, self.current_game.getHeight()+1):
                 button = Button(self.frame, image=self.null_disc_img)
                 button.grid(row=r, column=c)
                 column.append(button)
