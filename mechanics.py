@@ -31,9 +31,7 @@ class Disc:
 
 class Game:
     def __init__(self):
-        self._discs = []
-        self._current_player = 'red'
-        self._too_high = False
+        pass
 
     def nextTurn(self):
         '''Change the current player'''
@@ -148,6 +146,12 @@ class Game:
         
 
 class fourInARow(Game):
+    def __init__(self):
+        self._discs = []
+        self._current_player = 'red'
+        self._too_high = False
+        self._width = 7
+        self._height = 6
     
     def isWon(self):
         '''Check for every disc if it has 3 connecting disc of the same color
@@ -188,12 +192,17 @@ class fiveInARow(Game):
             Disc(0, 3, 'red'),
             Disc(0, 4, 'yellow'),
             Disc(0, 5, 'red'),
-            Disc(0, 6, 'yellow')]
+            Disc(0, 6, 'yellow'),
+            Disc(8, 1, 'yellow'),
+            Disc(8, 2, 'red'),
+            Disc(8, 3, 'yellow'),
+            Disc(8, 4, 'red'),
+            Disc(8, 5, 'yellow'),
+            Disc(8, 6, 'red')]
         self._current_player = 'red'
         self._too_high = False
-        self._width = 7
+        self._width = 9
         self._height = 6
-
 
 
     def isWon(self):

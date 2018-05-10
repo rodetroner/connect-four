@@ -14,9 +14,9 @@ class GUI:
         self.arrow_img = PhotoImage(file='graphics/arrow.gif')
         self.squares = []
         self.game_state_label = Label(self.frame, text='Tura gracza 1')
-        self.game_state_label.grid(row=9, column=8)
+        self.game_state_label.grid(row=3, column=self.current_game.getWidth()+1)
         self.full_column_label = Label(self.frame, text='')
-        self.full_column_label.grid(row=8, column=8)
+        self.full_column_label.grid(row=4, column=self.current_game.getWidth()+1)
 
     def setup(self):
         '''Setup the game'''
