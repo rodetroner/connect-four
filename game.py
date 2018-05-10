@@ -1,6 +1,39 @@
 from tkinter import *
 from mechanics import *
 
+class TitleScreen:
+    def __init__(self, master):
+        self.master = master
+        self.frame = Frame(master)
+        self.options = ['4-in-a-row', '5-in-a-row']
+        self.frame.pack()
+
+        self.label = Label(self.frame, text="Wybierz tryb gry")
+        self.label.grid(row=0, column=0)
+
+        self.variable = StringVar(master)
+        self.variable.set(self.options[0])
+        self.menu = OptionMenu(self.frame, self.variable, *self.options)
+        self.menu.grid(row=1, column=0)
+
+        self.button = Button(self.frame, text="Rozpocznij grę",
+            command=lambda: self.startGame(self.variable.get()))
+        self.button.grid(row=2, column=0)
+
+    def startGame(self, option):
+        self.frame.destroy()
+        if option == '4-in-a-row':
+            game = fourInARow()
+            board = GUI(self.master, game)
+            board.setup()
+
+        elif option == '5-in-a-row':
+            game = fiveInARow()
+            board = GUI(self.master, game)
+            board.setup()
+
+
+
 class GUI:
     def __init__(self, master, game):
         self.frame = Frame(master)
@@ -99,9 +132,7 @@ class GUI:
 
 root = Tk()
 root.title(string='Connect Four')
-game = fiveInARow()
 
-board = GUI(root, game)
-board.setup()
+TitleScreen(root)
 
 root.mainloop()
