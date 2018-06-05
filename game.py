@@ -44,7 +44,8 @@ class GUI:
         self._red_disc_img = PhotoImage(file='graphics/red_disc.gif')
         self._yellow_disc_img = PhotoImage(file='graphics/yellow_disc.gif')
         self._null_disc_img = PhotoImage(file='graphics/null_disc.gif')
-        self._arrow_img = PhotoImage(file='graphics/arrow.gif')
+        self._red_arrow_img = PhotoImage(file='graphics/red_arrow.gif')
+        self._yellow_arrow_img = PhotoImage(file='graphics/yellow_arrow.gif')
         self._squares = []
         self._game_state_label = Label(self._frame, text='Tura gracza 1')
         self._game_state_label.grid(row=3,
@@ -63,7 +64,7 @@ class GUI:
         # assigned
         for c in range(self._current_game.getWidth()):
             column = []
-            button = Button(self._frame, image=self._arrow_img,
+            button = Button(self._frame, image=self._red_arrow_img,
                 command=lambda c = c: self._current_game.addDisc(c))
             button.grid(row=0, column=c)
             column.append(button)
@@ -111,8 +112,12 @@ class GUI:
         # Display current player
         if self._current_game.getCurrentPlayer() == 'red':
             self._game_state_label.config(text='Tura gracza 1')
+            for i in range(self._current_game.getWidth()):
+                self._squares[i][0].config(image=self._red_arrow_img)
         else:
             self._game_state_label.config(text='Tura gracza 2')
+            for i in range(self._current_game.getWidth()):
+                self._squares[i][0].config(image=self._yellow_arrow_img)
 
         if self._current_game.isWon():
             if self._current_game.getCurrentPlayer() == 'red':
