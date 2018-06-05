@@ -103,22 +103,22 @@ class GUI:
 
         # Check if there are new discs to be added to the board
         # and change graphics of appropriate buttons
-        for disc in self._current_game.getDiscs():
-            if disc.getColor() == 'red':
-                self._squares[disc.getX()][disc.getY()].config(image=self._red_disc_img)
-            elif disc.getColor() == 'yellow':
-                self._squares[disc.getX()][disc.getY()].config(image=self._yellow_disc_img)
+
+        [self._squares[disc.getX()][disc.getY()].config(image=self._red_disc_img) \
+            if disc.getColor() == 'red' else \
+            self._squares[disc.getX()][disc.getY()].config(image=self._yellow_disc_img) \
+            for disc in self._current_game.getDiscs()] 
 
         # Display current player
         if self._current_game.getCurrentPlayer() == 'red':
             self._game_state_label.config(text='Tura gracza 1')
-            for i in range(self._current_game.getWidth()):
-                self._squares[i][0].config(image=self._red_arrow_img)
+            [self._squares[i][0].config(image=self._red_arrow_img) \
+                for i in range(self._current_game.getWidth())]
         else:
             self._game_state_label.config(text='Tura gracza 2')
-            for i in range(self._current_game.getWidth()):
-                self._squares[i][0].config(image=self._yellow_arrow_img)
-
+            [self._squares[i][0].config(image=self._yellow_arrow_img) \
+                for i in range(self._current_game.getWidth())]
+ 
         if self._current_game.isWon():
             if self._current_game.getCurrentPlayer() == 'red':
                 self._victory_message = "Wygrał gracz 2"
