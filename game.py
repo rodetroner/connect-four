@@ -47,7 +47,12 @@ class GUI:
         self._arrow_img = PhotoImage(file='graphics/arrow.gif')
         self._squares = []
         self._game_state_label = Label(self._frame, text='Tura gracza 1')
-        self._game_state_label.grid(row=3, column=self._current_game.getWidth()+1)
+        self._game_state_label.grid(row=3,
+            column=self._current_game.getWidth()+1)
+        self._restart_button = Button(self._frame, text="Restart",
+            command=lambda: self.restart(root))
+        self._restart_button.grid(row=1,
+            column=self._current_game.getWidth()+1)
         self._full_column_label = Label(self._frame, text='')
         self._full_column_label.grid(row=4, column=self._current_game.getWidth()+1)
 
@@ -71,9 +76,10 @@ class GUI:
         root.after(15, self.update)
 
 
-    def restart(self, window, root):
+    def restart(self, root, window=None):
         '''Restart the game'''
-        window.destroy()
+        if window is not None:
+            window.destroy()
         self._frame.destroy()
         self.__init__(root, self._current_game)
         self.setup()
@@ -87,7 +93,7 @@ class GUI:
         end_game_label = Label(frame, text=self._victory_message)
         end_game_label.pack()
         button = Button(frame, text="Zagraj jeszcze raz",
-            command=lambda: self.restart(victory, root))
+            command=lambda: self.restart(root, victory))
         button.pack()
         
 
